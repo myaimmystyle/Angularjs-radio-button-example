@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<div ng-app="app" ng-controller="cntrl">
+  <div ng-repeat="node in data">
+    <span>{{node.text}}</span>
+    <form ng-repeat="option in node.options">
+        &nbsp;&nbsp;<input type="radio" name="response" data-ng-model="option.selected" ng-change="update_options(option,node.options);" data-ng-value="true" />{{option.text}}
+    </form>
+  </div>
+
+</div>
+<script>
+var app = angular.module("app",[]);
+app.controller("cntrl",['$scope',function($scope){
+    $scope.selected_option = "";
+    $scope.data = [{'id':1,'text':'Question 1','options':[{'id':1,'text':'Option 1','selected':true},
+                                                  {'id':2,'text':'Option 1','selected':false},
+                                                  {'id':3,'text':'Option 3','selected':false},
+                                                  {'id':4,'text':'Option 4','selected':false}]},
+                   {'id':2,'text':'Question 2','options':[{'id':1,'text':'Option 1','selected':false},
+                                                  {'id':2,'text':'Option 2','selected':false},
+                                                  {'id':3,'text':'Option 3','selected':false},
+                                                  {'id':4,'text':'Option 4','selected':true}]}]
+    $scope.update_options = function(option,options){
+        for(var i=0;i<options.length;i++){
+            if(option == options[i]){
+                options[i].selected = true;
+            }
+            else{
+                options[i].selected = false;
+            }
+        }
+    }
+}])
+</script>
+</body>
+</html>
